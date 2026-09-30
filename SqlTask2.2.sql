@@ -1,0 +1,19 @@
+USE task3
+
+CREATE TABLE Users(
+Username VARCHAR(20) UNIQUE NOT NULL,
+Password VARCHAR(20) NOT NULL,
+Id INT IDENTITY(1, 1) PRIMARY KEY)
+
+CREATE TABLE Roles(
+Name VARCHAR(20) UNIQUE NOT NULL,
+Id INT IDENTITY(1, 1) PRIMARY KEY)
+
+ALTER TABLE Users
+ADD RoleId INT REFERENCES Roles(Id) NOT NULL
+
+
+SELECT us.Id AS UserId, us.Password AS UserPassword, us.RoleId AS RoleId, rl.Name AS RoleName
+FROM Users AS us
+JOIN Roles AS rl
+ON rl.Id = us.RoleId
